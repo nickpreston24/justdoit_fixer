@@ -139,7 +139,7 @@ public class TodosRepository : ITodosRepository
         {
             using var connection = SqlConnections.CreateConnection();
 
-            string status_name = TodoStatus.Pending.Name;
+            // string status_name = TodoStatus.Pending.Name;
             string insert_query =
                 @$"insert into todos (content, priority, status, due) values (@content, @priority, 'pending', @due)";
 
