@@ -5,8 +5,20 @@
     string search_term = "moopsy hungers....";
 }
 
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 <div>
     <h1>Todos (deployment fix)</h1>
+    
+    <button class="btn btn-danger" 
+            hx-post=""
+            name="input"
+            value="DELETE"
+            confirm-with-sweet-alert='true'>
+        Delete Important Stuff
+    </button>
+
 
     <div
         hx-get
