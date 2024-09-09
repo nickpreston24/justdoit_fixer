@@ -27,7 +27,6 @@ public class Index : PageModel
         Console.WriteLine($"{name}:{search_term}");
         Stopwatch watch = Stopwatch.StartNew();
 
-        Console.WriteLine(SqlConnections.GetMySQLConnectionString());
         using var connection = SqlConnections.CreateConnection();
         var all_todos = (await connection.QueryAsync<Todo>(
                 "select * from todos"
