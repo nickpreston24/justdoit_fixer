@@ -140,7 +140,7 @@ public class TodosRepository : ITodosRepository
             using var connection = SqlConnections.CreateConnection();
 
             string insert_query =
-                @$"insert into todos (content, priority, status, due) values (@content, @priority, 'pending', @due)";
+                @$"insert into todos (content, priority, status, due) values (@content, @priority, '{TodoStatus.Pending.Name}', @due)";
 
             var extracted_priority = todo
                 // .Dump("my todo added")
@@ -206,14 +206,14 @@ public class TodoStatus : Enumeration
     {
     }
 
-    public static implicit operator TodoStatus(string status)
-    {
-        if (status.IsEmpty())
-            return Unknown;
-        var
-            found = TodoStatus
-                .GetAll<TodoStatus>()
-                .SingleOrDefault(x => x.Name.Equals(status, StringComparison.CurrentCultureIgnoreCase));
-        return found;
-    }
+    // public static implicit operator TodoStatus(string status)
+    // {
+    //     if (status.IsEmpty())
+    //         return Unknown;
+    //     var
+    //         found = TodoStatus
+    //             .GetAll<TodoStatus>()
+    //             .SingleOrDefault(x => x.Name.Equals(status, StringComparison.CurrentCultureIgnoreCase));
+    //     return found;
+    // }
 }
