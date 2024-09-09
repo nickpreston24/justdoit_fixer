@@ -172,15 +172,15 @@ public class TodosRepository : ITodosRepository
         }
     }
 }
-
-internal class TodoStatus : Enumeration
-{
-    public static TodoStatus Pending = new TodoStatus(2, nameof(Pending));
-
-    public TodoStatus(int id, string name) : base(id, name)
-    {
-    }
-}
+//
+// internal class TodoStatus : Enumeration
+// {
+//     public static TodoStatus Pending = new TodoStatus(2, nameof(Pending));
+//
+//     public TodoStatus(int id, string name) : base(id, name)
+//     {
+//     }
+// }
 
 public class Priority
 {
