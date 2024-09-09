@@ -2,19 +2,48 @@
 @model justdoit_fixer.Pages.Todos.Index
 
 @{
-    Layout = "Shared/_Layout";
+    string search_term = "moopsy hungers....";
 }
 
-<script src="//unpkg.com/alpinejs" defer></script>
+<div>
+    <h1>Todos (deployment fix)</h1>
 
-<section>
-    <div>
-        <div x-data="{ open: false }">
-            <button @@click="open = true">Expand</button>
-
-            <span x-show="open">
-                Content...
-            </span>
-        </div>
+    <div
+        hx-get
+        hx-trigger="load"
+        hx-page="Index"
+        hx-page-handler="AllTodos"
+        hx-vars="{search_term: '@search_term'}">
+        <span>loading...</span>
     </div>
-</section>
+
+    <div
+        hx-get
+        hx-trigger="load"
+        hx-page="Index"
+        hx-page-handler="TimeElapsed"
+        hx-vars="{search_term: '@search_term'}">
+        <span>loading...</span>
+    </div>
+</div>
+
+@* @page *@
+@* @model justdoit_fixer.Pages.Todos.Index *@
+@* *@
+@* @{ *@
+@*     Layout = "Shared/_Layout"; *@
+@* } *@
+@* *@
+@* <script src="//unpkg.com/alpinejs" defer></script> *@
+@* *@
+@* <section> *@
+@*     <div> *@
+@*         <div x-data="{ open: false }"> *@
+@*             <button @@click="open = true">Expand</button> *@
+@* *@
+@*             <span x-show="open"> *@
+@*                 Content... *@
+@*             </span> *@
+@*         </div> *@
+@*     </div> *@
+@* </section> *@
