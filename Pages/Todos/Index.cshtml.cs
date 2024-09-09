@@ -39,4 +39,29 @@ public class Index : PageModel
         var elapsed = watch.Elapsed;
         return Partial("_TodoTable", all_todos);
     }
+
+    public async Task<IActionResult> OnGetTimeElapsed(
+        string search_term
+        , bool debug = false
+        , [CallerMemberName] string name = ""
+    )
+    {
+        try
+        {
+            if (debug) Console.WriteLine($"{name}:{search_term}");
+            Stopwatch watch = Stopwatch.StartNew();
+            using var connection = SqlConnections.CreateConnection();
+            var time = (await connection.QueryAsync<TimeElapsed>(@"select id from TimeElapsed")).ToList();
+            watch.Stop();
+            var elapsed = watch.Elapsed;
+            // return Content($"(mysql view call) total {time.Count} took {elapsed.Milliseconds} ms");
+
+            return Partial("_TimeElapsedTable", time);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }
