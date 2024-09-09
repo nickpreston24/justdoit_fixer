@@ -172,6 +172,15 @@ public class TodosRepository : ITodosRepository
     }
 }
 
+internal class TodoStatus : Enumeration
+{
+    public static TodoStatus Pending = new TodoStatus(2, nameof(Pending));
+
+    public TodoStatus(int id, string name) : base(id, name)
+    {
+    }
+}
+
 public class Priority
 {
     private Priority(string priority) => Value = priority.ToInt();
@@ -193,6 +202,8 @@ public class TodoPriorityRegex : RegexEnumBase
     {
     }
 }
+
+/*
 
 public class TodoStatus : Enumeration
 {
@@ -217,3 +228,4 @@ public class TodoStatus : Enumeration
     //     return found;
     // }
 }
+*/
