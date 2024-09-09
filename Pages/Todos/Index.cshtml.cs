@@ -85,11 +85,11 @@ public class TodosRepository : ITodosRepository
         throw new NotImplementedException();
     }
 
-    // public async Task<int> Create(params Todo[] model)
-    // {
-    //     return await InsertRow(model.First());
-    //     // return default;
-    // }
+    public async Task<int> Create(params Todo[] model)
+    {
+        // return await InsertRow(model.First());
+        return default;
+    }
 
     public Task Update(int id, Todo model)
     {
