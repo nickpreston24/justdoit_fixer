@@ -1,0 +1,8 @@
+obj/
+bin/
+nupkg/
+.idea/
+node_modules/
+wwwroot/lib/
+*.rest
+*.env
