@@ -1,0 +1,55 @@
+@page
+@model justdoit_fixer.Pages.Todos.Index
+
+@{
+    string search_term = "moopsy hungers....";
+}
+
+<div>
+    <h1>Todos (deployment fix)</h1>
+
+    <div
+        hx-get
+        hx-trigger="load"
+        hx-indicator="#table_loader"
+        hx-page="Index"
+        hx-page-handler="AllTodos">
+        <span
+            id="table_loader"
+            class="hx-indicator">
+            loading...
+            <img class="w-8" src="~/img/loaders/my_awesome_spinner.svg" alt="">
+        </span>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consectetur cumque dolore enim error fugit illo, impedit laboriosam, molestiae nulla numquam optio perspiciatis quam rem repellat repellendus sit ut veniam.</p>
+    </div>
+
+    <template x-if="false" x-cloak>
+
+        <button
+            class="btn btn-primary"
+            hx-get
+            hx-page="Index"
+            hx-page-handler="Stuff"
+            hx-trigger="click">
+            Swap
+        </button>
+
+        <div x-data="{ open: false }">
+            <button class="btn btn-secondary" @@click="open = true">Expand</button>
+
+            <span x-show="open">
+                Content...
+            </span>
+        </div>
+
+    </template>
+
+    @* <div *@
+    @*     hx-get *@
+    @*     hx-trigger="" *@
+    @*     hx-page="Index" *@
+    @*     hx-page-handler="TimeElapsed" *@
+    @*     hx-vars="{search_term: '@search_term'}"> *@
+    @*     <span>loading...</span> *@
+    @* </div> *@
+</div>

@@ -1,8 +1,11 @@
+using CodeMechanic.FileSystem;
 using Hydro.Configuration;
+
 // using justdoit_fixer.Pages.Todos;
 
 var builder = WebApplication.CreateBuilder(args);
 
+DotEnv.Load();
 // builder.Services.AddSingleton<ITodosRepository, TodosRepository>();
 // Add services to the container.
 builder.Services.AddRazorPages();
