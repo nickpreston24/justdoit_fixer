@@ -1,0 +1,20 @@
+@page
+@model justdoit_fixer.Pages.Todos.Index
+
+@{
+    Layout = "Shared/_Layout";
+}
+
+<script src="//unpkg.com/alpinejs" defer></script>
+
+<section>
+    <div>
+        <div x-data="{ open: false }">
+            <button @@click="open = true">Expand</button>
+
+            <span x-show="open">
+                Content...
+            </span>
+        </div>
+    </div>
+</section>
