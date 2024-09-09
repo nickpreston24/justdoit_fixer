@@ -2,7 +2,6 @@ using System.Text.RegularExpressions;
 using CodeMechanic.RegularExpressions;
 using CodeMechanic.Types;
 using Dapper;
-using justdoit_fixer.Models;
 using justdoit_fixer.Pages.Todos;
 using MySql.Data.MySqlClient;
 
