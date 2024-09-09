@@ -9,23 +9,41 @@
     <h1>Todos (deployment fix)</h1>
     <button class="btn btn-primary">Random button</button>
 
-    <div
-        hx-get
-        hx-trigger="load"
-        hx-page="Index"
-        hx-page-handler="AllTodos"
-        hx-vars="{search_term: '@search_term'}">
-        <span>loading...</span>
+    <h1>alpine sample</h1>
+    <div x-data="{ open: false }">
+        <button class="btn btn-secondary" @@click="open = true">Expand</button>
+
+        <span x-show="open">
+            Content...
+        </span>
     </div>
 
-    <div
+    @* hx-vars="{search_term: '@search_term'}" *@
+    @* <div *@
+    @*     hx-get *@
+    @*     hx-trigger="" *@
+    @*     hx-page="Index" *@
+    @*     hx-page-handler="AllTodos"> *@
+    @*     <span>loading...</span> *@
+    @* </div> *@
+
+    <button
+        class="btn btn-primary"
         hx-get
-        hx-trigger="load"
         hx-page="Index"
-        hx-page-handler="TimeElapsed"
-        hx-vars="{search_term: '@search_term'}">
-        <span>loading...</span>
-    </div>
+        hx-page-handler="Stuff"
+        hx-trigger="click">
+        Swap
+    </button>
+
+    @* <div *@
+    @*     hx-get *@
+    @*     hx-trigger="" *@
+    @*     hx-page="Index" *@
+    @*     hx-page-handler="TimeElapsed" *@
+    @*     hx-vars="{search_term: '@search_term'}"> *@
+    @*     <span>loading...</span> *@
+    @* </div> *@
 </div>
 
 @* @page *@

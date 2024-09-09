@@ -1,0 +1,31 @@
+@model justdoit_fixer.Pages.Components.HydroSelect
+
+<div>
+    Count: <strong>@Model.Count</strong>
+    <button hydro-on:click="@(() => Model.Add())">
+        Add
+    </button>
+</div>
+
+@* *@
+@* @{ *@
+@* } *@
+@* *@
+@* <div tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"> *@
+@*     <div x-transition> *@
+@*         <select *@
+@*             x-transition *@
+@*             x-model="selected_theme" *@
+@*             x-effect="console.log(selected_theme); localStorage.setItem('theme', selected_theme)" *@
+@*             class="select select-accent w-auto max-w-xs"> *@
+@*             <option disabled selected>Pick your favorite theme</option> *@
+@*             <template x-cloak x-for="theme in themes"> *@
+@*                 <option *@
+@*                     :key="theme" *@
+@*                     :value="theme" *@
+@*                     x-text="theme"> *@
+@*                 </option> *@
+@*             </template> *@
+@*         </select> *@
+@*     </div> *@
+@* </div> *@
