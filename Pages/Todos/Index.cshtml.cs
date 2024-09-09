@@ -133,66 +133,66 @@ public class TodosRepository : ITodosRepository
         return new List<string>(0);
     }
 
-    private async Task<int> InsertRow(Todo todo)
-    {
-        try
-        {
-            using var connection = SqlConnections.CreateConnection();
-
-            string insert_query =
-                @$"insert into todos (content, priority, status, due) values (@content, @priority, '{TodoStatus.Pending.Name}', @due)";
-
-            var extracted_priority = todo
-                // .Dump("my todo added")
-                .content
-                .Extract<Priority>(TodoPriorityRegex.Basic.CompiledRegex)
-                // .Dump("priori incantum")
-                .SingleOrDefault();
-
-            // extracted_priority.Dump(nameof(extracted_priority));
-
-            var results = await Dapper.SqlMapper
-                .ExecuteAsync(connection, insert_query,
-                    new
-                    {
-                        content = todo.content,
-                        priority = extracted_priority?.Value ?? 4,
-                        status = todo.status,
-                        due = todo.due
-                    });
-
-            return results;
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-
-            throw;
-        }
-    }
+    // private async Task<int> InsertRow(Todo todo)
+    // {
+    //     try
+    //     {
+    //         using var connection = SqlConnections.CreateConnection();
+    //
+    //         string insert_query =
+    //             @$"insert into todos (content, priority, status, due) values (@content, @priority, '{TodoStatus.Pending.Name}', @due)";
+    //
+    //         var extracted_priority = todo
+    //             // .Dump("my todo added")
+    //             .content
+    //             .Extract<Priority>(TodoPriorityRegex.Basic.CompiledRegex)
+    //             // .Dump("priori incantum")
+    //             .SingleOrDefault();
+    //
+    //         // extracted_priority.Dump(nameof(extracted_priority));
+    //
+    //         var results = await Dapper.SqlMapper
+    //             .ExecuteAsync(connection, insert_query,
+    //                 new
+    //                 {
+    //                     content = todo.content,
+    //                     priority = extracted_priority?.Value ?? 4,
+    //                     status = todo.status,
+    //                     due = todo.due
+    //                 });
+    //
+    //         return results;
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         Console.WriteLine(e);
+    //
+    //         throw;
+    //     }
+    // }
 }
-
-public class Priority
-{
-    private Priority(string priority) => Value = priority.ToInt();
-
-    public string raw_text { get; set; } = string.Empty; // e.g. p1
-    public string friendly_name => $"Priority {Value}"; // e.g. 'Priority 1'
-    public int Value { get; set; } = -1;
-    public static implicit operator Priority(string priority) => new Priority(priority);
-    public static implicit operator Priority(int priority) => new Priority(priority.ToString());
-}
-
-public class TodoPriorityRegex : RegexEnumBase
-{
-    public static TodoPriorityRegex Basic =
-        new TodoPriorityRegex(1, nameof(Basic), @"(?<raw_text>(priority\s*|p)(?<Value>[1-4]))",
-            "https://regex101.com/r/twefSL/1"); // return that part to autozone tomorrow p1
-
-    protected TodoPriorityRegex(int id, string name, string pattern, string uri = "") : base(id, name, pattern, uri)
-    {
-    }
-}
+//
+// public class Priority
+// {
+//     private Priority(string priority) => Value = priority.ToInt();
+//
+//     public string raw_text { get; set; } = string.Empty; // e.g. p1
+//     public string friendly_name => $"Priority {Value}"; // e.g. 'Priority 1'
+//     public int Value { get; set; } = -1;
+//     public static implicit operator Priority(string priority) => new Priority(priority);
+//     public static implicit operator Priority(int priority) => new Priority(priority.ToString());
+// }
+//
+// public class TodoPriorityRegex : RegexEnumBase
+// {
+//     public static TodoPriorityRegex Basic =
+//         new TodoPriorityRegex(1, nameof(Basic), @"(?<raw_text>(priority\s*|p)(?<Value>[1-4]))",
+//             "https://regex101.com/r/twefSL/1"); // return that part to autozone tomorrow p1
+//
+//     protected TodoPriorityRegex(int id, string name, string pattern, string uri = "") : base(id, name, pattern, uri)
+//     {
+//     }
+// }
 
 public class TodoStatus : Enumeration
 {
