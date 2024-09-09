@@ -88,7 +88,7 @@ public class TodosRepository : ITodosRepository
     public async Task<int> Create(params Todo[] model)
     {
         return await InsertRow(model.First());
-        // return default;
+        return default;
     }
 
     public Task Update(int id, Todo model)
@@ -141,7 +141,7 @@ public class TodosRepository : ITodosRepository
 
             string insert_query =
                 @$"insert into todos (content, priority, status, due) values (@content, @priority, 'pending', @due)";
-
+            
             // string insert_query =
             //     @$"insert into todos (content, priority, status, due) values (@content, @priority, '{TodoStatus.Pending.Name}', @due)";
 
