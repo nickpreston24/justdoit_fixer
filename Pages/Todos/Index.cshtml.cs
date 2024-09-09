@@ -139,9 +139,11 @@ public class TodosRepository : ITodosRepository
         {
             using var connection = SqlConnections.CreateConnection();
 
-            // string status_name = TodoStatus.Pending.Name;
             string insert_query =
-                @$"insert into todos (content, priority, status, due) values (@content, @priority, 'pending', @due)";
+                @$"
+        insert into todos (content, priority, status, due) 
+        values (@content, @priority, 'pending', @due)
+        ";
 
             var extracted_priority = todo
                 // .Dump("my todo added")
@@ -172,15 +174,6 @@ public class TodosRepository : ITodosRepository
         }
     }
 }
-//
-// internal class TodoStatus : Enumeration
-// {
-//     public static TodoStatus Pending = new TodoStatus(2, nameof(Pending));
-//
-//     public TodoStatus(int id, string name) : base(id, name)
-//     {
-//     }
-// }
 
 public class Priority
 {
@@ -203,30 +196,3 @@ public class TodoPriorityRegex : RegexEnumBase
     {
     }
 }
-
-/*
-
-public class TodoStatus : Enumeration
-{
-    public static TodoStatus Done = new TodoStatus(1, nameof(Done));
-    public static TodoStatus Pending = new TodoStatus(2, nameof(Pending));
-    public static TodoStatus WIP = new TodoStatus(3, nameof(WIP));
-    public static TodoStatus Postponed = new TodoStatus(4, nameof(Postponed));
-    public static TodoStatus Unknown = new TodoStatus(5, nameof(Unknown));
-
-    public TodoStatus(int id, string name) : base(id, name)
-    {
-    }
-
-    // public static implicit operator TodoStatus(string status)
-    // {
-    //     if (status.IsEmpty())
-    //         return Unknown;
-    //     var
-    //         found = TodoStatus
-    //             .GetAll<TodoStatus>()
-    //             .SingleOrDefault(x => x.Name.Equals(status, StringComparison.CurrentCultureIgnoreCase));
-    //     return found;
-    // }
-}
-*/
