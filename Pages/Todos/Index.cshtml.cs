@@ -1,4 +1,5 @@
 using CodeMechanic.Types;
+using Dapper;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using MySql.Data.MySqlClient;
 
@@ -31,5 +32,35 @@ public static class SqlConnections
 
         if (connectionString.IsEmpty()) throw new ArgumentNullException(nameof(connectionString));
         return connectionString;
+    }
+}
+
+public interface ITodosRepository
+{
+    Task<List<Todo>> GetAll();
+}
+
+public class Todo
+{
+}
+
+public class TodosRepository : ITodosRepository
+{
+    public async Task<List<Todo>> GetAll()
+    {
+        var connectionString = SqlConnections.GetMySQLConnectionString();
+
+        using var connection = new MySqlConnection(connectionString);
+
+        string select_query = @"
+            select id, content, due, status, priority
+            from todos;
+        ";
+
+        using var grabby_connection = new MySqlConnection(connectionString);
+
+        var todos = (await connection.QueryAsync<Todo>(select_query)).ToList();
+
+        return todos;
     }
 }
