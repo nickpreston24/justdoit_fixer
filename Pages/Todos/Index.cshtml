@@ -9,22 +9,23 @@
     <h1>Todos (deployment fix)</h1>
 
     <h1>alpine sample</h1>
-    <div x-data="{ open: false }">
-        <button class="btn btn-secondary" @@click="open = true">Expand</button>
-
-        <span x-show="open">
-            Content...
-        </span>
-    </div>
-
-    @* hx-vars="{search_term: '@search_term'}" *@
-    @* <div *@
-    @*     hx-get *@
-    @*     hx-trigger="" *@
-    @*     hx-page="Index" *@
-    @*     hx-page-handler="AllTodos"> *@
-    @*     <span>loading...</span> *@
+    @* <div x-data="{ open: false }"> *@
+    @*     <button class="btn btn-secondary" @@click="open = true">Expand</button> *@
+    @* *@
+    @*     <span x-show="open"> *@
+    @*         Content... *@
+    @*     </span> *@
     @* </div> *@
+
+    <div
+        hx-get
+        hx-trigger="load"
+        hx-vars="{search_term: '@search_term'}"
+        hx-page="Index"
+        hx-page-handler="AllTodos">
+        <span>loading...</span>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consectetur cumque dolore enim error fugit illo, impedit laboriosam, molestiae nulla numquam optio perspiciatis quam rem repellat repellendus sit ut veniam.</p>
+    </div>
 
     <button
         class="btn btn-primary"
