@@ -9,17 +9,17 @@ namespace justdoit_fixer.Pages.Todos;
 
 public class Index : PageModel
 {
-    private readonly ITodosRepository todo_repo;
-    private bool debug;
+    // private readonly ITodosRepository todo_repo;
+    // private bool debug;
 
-    public Index(ITodosRepository todosRepository)
-    {
-        this.todo_repo = todosRepository;
-    }
+    // public Index(ITodosRepository todosRepository)
+    // {
+    //     this.todo_repo = todosRepository;
+    // }
 
     public void OnGet()
     {
-        this.debug = true;
+        // this.debug = true;
     }
 /*
     public async Task<IActionResult> OnGetAllTodos(string search_term, [CallerMemberName] string name = "")
