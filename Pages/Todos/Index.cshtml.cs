@@ -87,7 +87,8 @@ public class TodosRepository : ITodosRepository
 
     public async Task<int> Create(params Todo[] model)
     {
-        return await InsertRow(model.First());
+        // return await InsertRow(model.First());
+        return default;
     }
 
     public Task Update(int id, Todo model)
@@ -171,8 +172,10 @@ public class TodosRepository : ITodosRepository
     }
 }
 
-public record Priority
+public class Priority
 {
+    private Priority(string priority) => Value = priority.ToInt();
+
     public string raw_text { get; set; } = string.Empty; // e.g. p1
     public string friendly_name => $"Priority {Value}"; // e.g. 'Priority 1'
     public int Value { get; set; } = -1;
