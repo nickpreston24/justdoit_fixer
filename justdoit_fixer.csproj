@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="CodeMechanic.FileSystem" Version="2.0.1" />
+    <PackageReference Include="Hydro" Version="0.15.0" />
+  </ItemGroup>
+
 </Project>
