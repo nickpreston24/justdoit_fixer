@@ -87,7 +87,7 @@ public class TodosRepository : ITodosRepository
 
     public async Task<int> Create(params Todo[] model)
     {
-        return await InsertRow(model.First());
+        // return await InsertRow(model.First());
         return default;
     }
 
@@ -140,17 +140,14 @@ public class TodosRepository : ITodosRepository
             using var connection = SqlConnections.CreateConnection();
 
             string insert_query =
-                @$"insert into todos (content, priority, status, due) values (@content, @priority, 'pending', @due)";
-            
-            // string insert_query =
-            //     @$"insert into todos (content, priority, status, due) values (@content, @priority, '{TodoStatus.Pending.Name}', @due)";
+                @$"insert into todos (content, priority, status, due) values (@content, @priority, '{TodoStatus.Pending.Name}', @due)";
 
-            // var extracted_priority = todo
-            //     // .Dump("my todo added")
-            //     .content
-            //     .Extract<Priority>(TodoPriorityRegex.Basic.CompiledRegex)
-            //     // .Dump("priori incantum")
-            //     .SingleOrDefault();
+            var extracted_priority = todo
+                // .Dump("my todo added")
+                .content
+                .Extract<Priority>(TodoPriorityRegex.Basic.CompiledRegex)
+                // .Dump("priori incantum")
+                .SingleOrDefault();
 
             // extracted_priority.Dump(nameof(extracted_priority));
 
@@ -159,8 +156,7 @@ public class TodosRepository : ITodosRepository
                     new
                     {
                         content = todo.content,
-                        // priority = extracted_priority?.Value ?? 4,
-                        priority = 4,
+                        priority = extracted_priority?.Value ?? 4,
                         status = todo.status,
                         due = todo.due
                     });
@@ -175,49 +171,49 @@ public class TodosRepository : ITodosRepository
         }
     }
 }
-//
-// public class Priority
-// {
-//     private Priority(string priority) => Value = priority.ToInt();
-//
-//     public string raw_text { get; set; } = string.Empty; // e.g. p1
-//     public string friendly_name => $"Priority {Value}"; // e.g. 'Priority 1'
-//     public int Value { get; set; } = -1;
-//     public static implicit operator Priority(string priority) => new Priority(priority);
-//     public static implicit operator Priority(int priority) => new Priority(priority.ToString());
-// }
-//
-// public class TodoPriorityRegex : RegexEnumBase
-// {
-//     public static TodoPriorityRegex Basic =
-//         new TodoPriorityRegex(1, nameof(Basic), @"(?<raw_text>(priority\s*|p)(?<Value>[1-4]))",
-//             "https://regex101.com/r/twefSL/1"); // return that part to autozone tomorrow p1
-//
-//     protected TodoPriorityRegex(int id, string name, string pattern, string uri = "") : base(id, name, pattern, uri)
-//     {
-//     }
-// }
-//
-// public class TodoStatus : Enumeration
-// {
-//     public static TodoStatus Done = new TodoStatus(1, nameof(Done));
-//     public static TodoStatus Pending = new TodoStatus(2, nameof(Pending));
-//     public static TodoStatus WIP = new TodoStatus(3, nameof(WIP));
-//     public static TodoStatus Postponed = new TodoStatus(4, nameof(Postponed));
-//     public static TodoStatus Unknown = new TodoStatus(5, nameof(Unknown));
-//
-//     public TodoStatus(int id, string name) : base(id, name)
-//     {
-//     }
-//
-//     public static implicit operator TodoStatus(string status)
-//     {
-//         if (status.IsEmpty())
-//             return Unknown;
-//         var
-//             found = TodoStatus
-//                 .GetAll<TodoStatus>()
-//                 .SingleOrDefault(x => x.Name.Equals(status, StringComparison.CurrentCultureIgnoreCase));
-//         return found;
-//     }
-// }
+
+public class Priority
+{
+    private Priority(string priority) => Value = priority.ToInt();
+
+    public string raw_text { get; set; } = string.Empty; // e.g. p1
+    public string friendly_name => $"Priority {Value}"; // e.g. 'Priority 1'
+    public int Value { get; set; } = -1;
+    public static implicit operator Priority(string priority) => new Priority(priority);
+    public static implicit operator Priority(int priority) => new Priority(priority.ToString());
+}
+
+public class TodoPriorityRegex : RegexEnumBase
+{
+    public static TodoPriorityRegex Basic =
+        new TodoPriorityRegex(1, nameof(Basic), @"(?<raw_text>(priority\s*|p)(?<Value>[1-4]))",
+            "https://regex101.com/r/twefSL/1"); // return that part to autozone tomorrow p1
+
+    protected TodoPriorityRegex(int id, string name, string pattern, string uri = "") : base(id, name, pattern, uri)
+    {
+    }
+}
+
+public class TodoStatus : Enumeration
+{
+    public static TodoStatus Done = new TodoStatus(1, nameof(Done));
+    public static TodoStatus Pending = new TodoStatus(2, nameof(Pending));
+    public static TodoStatus WIP = new TodoStatus(3, nameof(WIP));
+    public static TodoStatus Postponed = new TodoStatus(4, nameof(Postponed));
+    public static TodoStatus Unknown = new TodoStatus(5, nameof(Unknown));
+
+    public TodoStatus(int id, string name) : base(id, name)
+    {
+    }
+
+    public static implicit operator TodoStatus(string status)
+    {
+        if (status.IsEmpty())
+            return Unknown;
+        var
+            found = TodoStatus
+                .GetAll<TodoStatus>()
+                .SingleOrDefault(x => x.Name.Equals(status, StringComparison.CurrentCultureIgnoreCase));
+        return found;
+    }
+}
