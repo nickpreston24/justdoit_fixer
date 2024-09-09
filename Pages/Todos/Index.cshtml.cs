@@ -21,7 +21,7 @@ public class Index : PageModel
     {
         this.debug = true;
     }
-
+/*
     public async Task<IActionResult> OnGetAllTodos(string search_term, [CallerMemberName] string name = "")
     {
         if (debug) Console.WriteLine($"{name}:{search_term}");
@@ -51,7 +51,8 @@ public class Index : PageModel
             Console.WriteLine(e);
             throw;
         }
-    }
+}
+        */
 }
 
 public class TimeElapsed
