@@ -1,6 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<ITodosRepository, TodosRepository>();
+// builder.Services.AddSingleton<ITodosRepository, TodosRepository>();
 // Add services to the container.
 builder.Services.AddRazorPages();
 
