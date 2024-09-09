@@ -85,11 +85,11 @@ public class TodosRepository : ITodosRepository
         throw new NotImplementedException();
     }
 
-    // public async Task<int> Create(params Todo[] model)
-    // {
-    //     // return await InsertRow(model.First());
-    //     return default;
-    // }
+    public async Task<int> Create(params Todo[] model)
+    {
+        return await InsertRow(model.First());
+        // return default;
+    }
 
     public Task Update(int id, Todo model)
     {
@@ -133,43 +133,47 @@ public class TodosRepository : ITodosRepository
         return new List<string>(0);
     }
 
-    // private async Task<int> InsertRow(Todo todo)
-    // {
-    //     try
-    //     {
-    //         using var connection = SqlConnections.CreateConnection();
-    //
-    //         string insert_query =
-    //             @$"insert into todos (content, priority, status, due) values (@content, @priority, '{TodoStatus.Pending.Name}', @due)";
-    //
-    //         var extracted_priority = todo
-    //             // .Dump("my todo added")
-    //             .content
-    //             .Extract<Priority>(TodoPriorityRegex.Basic.CompiledRegex)
-    //             // .Dump("priori incantum")
-    //             .SingleOrDefault();
-    //
-    //         // extracted_priority.Dump(nameof(extracted_priority));
-    //
-    //         var results = await Dapper.SqlMapper
-    //             .ExecuteAsync(connection, insert_query,
-    //                 new
-    //                 {
-    //                     content = todo.content,
-    //                     priority = extracted_priority?.Value ?? 4,
-    //                     status = todo.status,
-    //                     due = todo.due
-    //                 });
-    //
-    //         return results;
-    //     }
-    //     catch (Exception e)
-    //     {
-    //         Console.WriteLine(e);
-    //
-    //         throw;
-    //     }
-    // }
+    private async Task<int> InsertRow(Todo todo)
+    {
+        try
+        {
+            using var connection = SqlConnections.CreateConnection();
+
+            string insert_query =
+                @$"insert into todos (content, priority, status, due) values (@content, @priority, 'pending', @due)";
+
+            // string insert_query =
+            //     @$"insert into todos (content, priority, status, due) values (@content, @priority, '{TodoStatus.Pending.Name}', @due)";
+
+            // var extracted_priority = todo
+            //     // .Dump("my todo added")
+            //     .content
+            //     .Extract<Priority>(TodoPriorityRegex.Basic.CompiledRegex)
+            //     // .Dump("priori incantum")
+            //     .SingleOrDefault();
+
+            // extracted_priority.Dump(nameof(extracted_priority));
+
+            var results = await Dapper.SqlMapper
+                .ExecuteAsync(connection, insert_query,
+                    new
+                    {
+                        content = todo.content,
+                        // priority = extracted_priority?.Value ?? 4,
+                        priority = 4,
+                        status = todo.status,
+                        due = todo.due
+                    });
+
+            return results;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+
+            throw;
+        }
+    }
 }
 //
 // public class Priority
