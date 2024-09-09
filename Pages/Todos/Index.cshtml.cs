@@ -88,7 +88,7 @@ public class TodosRepository : ITodosRepository
     public async Task<int> Create(params Todo[] model)
     {
         return await InsertRow(model.First());
-        return default;
+        // return default;
     }
 
     public Task Update(int id, Todo model)
