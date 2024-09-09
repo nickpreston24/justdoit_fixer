@@ -1,4 +1,5 @@
-using CodeMechanic.FileSystem;
+/*
+ using CodeMechanic.FileSystem;
 using Hydro.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,8 +35,8 @@ app.MapRazorPages();
 // app.ConfigureMiddleware();
 
 app.Run();
+ */
 
-/*
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,5 +63,3 @@ app.UseAuthorization();
 app.MapRazorPages();
 
 app.Run();
-
-*/
