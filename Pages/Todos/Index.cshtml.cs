@@ -40,23 +40,30 @@ public class Index : PageModel
         return Partial("_TodoTable", all_todos);
     }
 
-    public async Task<IActionResult> OnGetTimeElapsed(
-        string search_term
+
+    /// <summary>
+    /// Renders a Mysql view requested from the frontend
+    /// </summary>
+    /// <param name="view_name"></param>
+    /// <param name="result_type"></param>
+    /// <param name="debug"></param>
+    /// <returns></returns>
+    public async Task<IActionResult> OnGetRenderView(
+        string view_name
+        , Type result_type
         , bool debug = false
         , [CallerMemberName] string name = ""
     )
     {
         try
         {
-            if (debug) Console.WriteLine($"{name}:{search_term}");
             Stopwatch watch = Stopwatch.StartNew();
             using var connection = SqlConnections.CreateConnection();
-            var time = (await connection.QueryAsync<TimeElapsed>(@"select id from TimeElapsed")).ToList();
+            var view_results = (await connection.QueryAsync(@"select id from TimeElapsed")).ToList();
             watch.Stop();
             var elapsed = watch.Elapsed;
-            // return Content($"(mysql view call) total {time.Count} took {elapsed.Milliseconds} ms");
 
-            return Partial("_TimeElapsedTable", time);
+            return Partial(view_name, view_results);
         }
         catch (Exception e)
         {
@@ -64,4 +71,6 @@ public class Index : PageModel
             throw;
         }
     }
+
+    public string[] ViewNames { get; set; } = new[] { "TimeElapsed" };
 }
