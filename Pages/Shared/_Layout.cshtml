@@ -15,11 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css"/>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    @* <script src="//unpkg.com/alpinejs" defer></script> *@
-
-    @* <script src="~/lib/alpinejs/cdn.min.js" *@
-    @*         asp-fallback-src="//unpkg.com/alpinejs" *@
-    @*         defer></script> *@
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
 </head>
@@ -110,5 +106,26 @@
 <script src="js/layout.js"></script>
 
 <script src="js/site.js"></script>
+@* *@
+@* <script > *@
+@* *@
+@* document.body.addEventListener('htmx:confirm', function (evt) { *@
+@*     if (evt.target.matches("[confirm-with-sweet-alert='true']")) { *@
+@*         evt.preventDefault(); *@
+@*         swal({ *@
+@*             title: "Are you sure?", *@
+@*             text: "Are you sure you are sure?", *@
+@*             icon: "warning", *@
+@*             buttons: true, *@
+@*             dangerMode: true, *@
+@*         }).then((confirmed) => { *@
+@*             if (confirmed) { *@
+@*                 evt.detail.issueRequest(); *@
+@*             } *@
+@*         }); *@
+@*     } *@
+@* }); *@
+@* *@
+@* </script> *@
 
 </html>

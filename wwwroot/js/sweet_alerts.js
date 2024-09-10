@@ -1,4 +1,3 @@
-﻿// site.js
 document.body.addEventListener('htmx:confirm', function (evt) {
     if (evt.target.matches("[confirm-with-sweet-alert='true']")) {
         evt.preventDefault();
