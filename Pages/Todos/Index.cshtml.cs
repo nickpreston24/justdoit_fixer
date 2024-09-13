@@ -15,7 +15,7 @@ public class Index : PageModel
     [BindProperty(SupportsGet = true)] public string Email { get; set; } = string.Empty;
     [BindProperty(SupportsGet = true)] public string Content { get; set; } = string.Empty;
 
-    public string[] ViewNames { get; set; } = new[] { "TimeElapsed" };
+    public string[] ViewNames { get; set; } = new[] { "_TimeElapsedTable" };
 
     public void OnGet()
     {
@@ -65,6 +65,7 @@ public class Index : PageModel
         , [CallerMemberName] string name = ""
     )
     {
+        Console.WriteLine(name);
         try
         {
             Stopwatch watch = Stopwatch.StartNew();

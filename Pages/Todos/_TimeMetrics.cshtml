@@ -13,7 +13,7 @@
             <h2 class="text-secondary">@view_name View:</h2>
             <button
                 hx-get
-                hx-trigger="click"
+                hx-trigger="load"
                 hx-page="Index"
                 hx-page-handler="RenderView"
                 hx-vars="{view_name: '@view_name'}">

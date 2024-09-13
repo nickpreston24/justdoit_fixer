@@ -18,7 +18,7 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     @* toasts *@
-    <script src="https://cdn.jsdelivr.net/npm/@@ryangjchandler/spruce@2.x.x/dist/spruce.umd.js"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/@@ryangjchandler/spruce@2.x.x/dist/spruce.umd.js"></script> *@
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
 
@@ -42,18 +42,24 @@
                 </a>
             </li>
 
-            <li>
-                <a href="/Health">
-                    <box-icon type='plus' :color="selected_box_icon_color" name='github'></box-icon>
-                    Health
-                </a>
-            </li>
-            <li>
-                <a href="/Sandbox">
-                    <box-icon type='plus' :color="selected_box_icon_color" name='github'></box-icon>
-                    Sandbox
-                </a>
-            </li>
+            <hidden>
+
+                <li>
+                    <a href="/Health">
+                        <box-icon type='plus' :color="selected_box_icon_color" name='github'></box-icon>
+                        Health
+                    </a>
+                </li>
+            </hidden>
+            <hidden>
+
+                <li>
+                    <a href="/Sandbox">
+                        <box-icon type='plus' :color="selected_box_icon_color" name='github'></box-icon>
+                        Sandbox
+                    </a>
+                </li>
+            </hidden>
         </slot>
 
         <a href="/">
@@ -64,25 +70,27 @@
         </a>
 
         <slot name="corner">
-            @* <div class="dropdown dropdown-end"> *@
-            <div tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                <div x-transition>
-                    <select
-                        x-transition
-                        x-model="selected_theme"
-                        x-effect="console.log(selected_theme); localStorage.setItem('theme', selected_theme)"
-                        class="select select-accent w-auto max-w-xs">
-                        <option disabled selected>Pick your favorite theme</option>
-                        <template x-cloak x-for="theme in themes">
-                            <option
-                                :key="theme"
-                                :value="theme"
-                                x-text="theme">
-                            </option>
-                        </template>
-                    </select>
-                </div>
-            </div>
+
+            <partial name="_SettingsSlideover"/>
+
+            @* <div tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"> *@
+            @*     <div x-transition> *@
+            @*         <select *@
+            @*             x-transition *@
+            @*             x-model="selected_theme" *@
+            @*             x-effect="console.log(selected_theme); localStorage.setItem('theme', selected_theme)" *@
+            @*             class="select select-accent w-auto max-w-xs"> *@
+            @*             <option disabled selected>Pick your favorite theme</option> *@
+            @*             <template x-cloak x-for="theme in themes"> *@
+            @*                 <option *@
+            @*                     :key="theme" *@
+            @*                     :value="theme" *@
+            @*                     x-text="theme"> *@
+            @*                 </option> *@
+            @*             </template> *@
+            @*         </select> *@
+            @*     </div> *@
+            @* </div> *@
         </slot>
     </hydro-nav>
 
@@ -123,6 +131,7 @@ var previous = localStorage.getItem('theme') ?? "light";
 function setup_layout() {
     console.log('setup_layout() initializing ...')
     return {
+        slideOverOpen: false,
         my_github: 'https://github.com/nickpreston24?tab=repositories',
         get selected_box_icon_color() {
             return 'yellow'  // todo: coordinate this with the current theme

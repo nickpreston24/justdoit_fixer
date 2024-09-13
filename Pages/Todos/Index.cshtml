@@ -5,17 +5,20 @@
     string search_term = "moopsy hungers....";
 }
 
-<div x-data="setup_todo_action_buttons"
-     class="flex flex-col gap-4">
-    <h1>Todos (deployment fix)</h1>
+<section x-data="setup_todo_action_buttons()"
+         class="flex flex-col gap-4">
+    @* <h1>Todos (deployment fix)</h1> *@
+    @* <span x-text="views.metrics.show"></span> *@
+    @* <button x-on:click="views.metrics.show = true">show metrics</button> *@
 
-    <partial name="_AddTodo"/>
 
-    <partial name="_TodoActions"></partial>
+    <div id="options_panel" class="flex flex-row gap-2 items-center">
 
-    <hidden>
-        <partial name="_RadioGroup"></partial>
-    </hidden>
+        <partial name="_AddTodo"/>
+
+        <partial name="_TodoActions"></partial>
+
+    </div>
 
     <div
         hx-get
@@ -34,35 +37,21 @@
 
     @* Experimental *@
 
-    <template x-if="false" x-cloak>
-
-        <button
-            class="btn btn-primary"
-            hx-get
-            hx-page="Index"
-            hx-page-handler="Stuff"
-            hx-trigger="click">
-            Swap
-        </button>
-
-        <div x-data="{ open: false }">
-            <button class="btn btn-secondary" @@click="open = true">Expand</button>
-
-            <span x-show="open">
-                Content...
-            </span>
-        </div>
-
-    </template>
-
-    @* <partial name="_TimeMetrics"></partial> *@
+    <div x-show="views.metrics.show">
+        @* <partial name="_TimeMetrics"></partial> *@
+    </div>
 
     @* <partial name="_ToastSample"></partial> *@
-</div>
+</section>
 
 <script>
 function setup_todo_action_buttons() {
     return {
+        views: {
+            metrics: {show: false}
+            
+        },
+        
         todo_actions: {
             bump: {enabled: false}, 
             reschedule: {enabled: false}, 

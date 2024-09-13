@@ -2,10 +2,14 @@
 
 <div>
 
-    <span x-text="todo_actions"></span>
-
 
     <div class="flex flex-row items-center justify-center gap-2">
+
+        <div data-tip="Add new task" class="tooltip">
+            <button class="btn btn-primary">
+                <box-icon name='list-plus'></box-icon>
+            </button>
+        </div>
 
         <hidden>
             <div data-tip="Soft Delete" class="tooltip">
@@ -17,7 +21,7 @@
                         value="DELETE"
                         confirm-with-sweet-alert='true'>
                     <box-icon class="text-accent" name='trash' type='solid'></box-icon>
-                    Delete
+                    @* Delete *@
                 </button>
             </div>
         </hidden>
@@ -25,17 +29,20 @@
 
         <div data-tip="Bump" class="tooltip">
             <button
-                class="btn btn-primary">
+                class="btn btn-accent">
                 <box-icon name='up-arrow-alt'></box-icon>
-                Bump
+                @* Bump *@
             </button>
         </div>
         <div data-tip="Reschedule" class="tooltip">
             <button
                 class="btn btn-accent">
                 <box-icon type='solid' name='calendar-event'></box-icon>
-                Reschedule
+                @* Reschedule *@
             </button>
         </div>
+
+        <partial name="_TodoFilters"></partial>
+
     </div>
 </div>
