@@ -1,7 +1,5 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using CodeMechanic.RegularExpressions;
-using CodeMechanic.Types;
 using Dapper;
 using justdoit_fixer.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +9,10 @@ namespace justdoit_fixer.Pages.Todos;
 
 public class Index : PageModel
 {
+    public Todo Todo { get; set; } = new Todo() { };
+    public string[] ViewNames { get; set; } = new[] { "TimeElapsed" };
+
+
     public void OnGet()
     {
     }
@@ -72,5 +74,16 @@ public class Index : PageModel
         }
     }
 
-    public string[] ViewNames { get; set; } = new[] { "TimeElapsed" };
+    public async Task<IActionResult> OnPostAddTodo()
+    {
+        string query = @"insert into todos (content) values (@content) ";
+        int rows = 0;
+        using var connection = SqlConnections.CreateConnection();
+        rows = await connection.ExecuteAsync(query, new Todo
+        {
+            content = Todo.content
+        });
+
+        return Content($"added {rows} rows.");
+    }
 }

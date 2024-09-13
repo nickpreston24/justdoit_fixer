@@ -5,8 +5,11 @@
     string search_term = "moopsy hungers....";
 }
 
-<div>
+<div class="flex flex-col gap-4">
     <h1>Todos (deployment fix)</h1>
+
+    <partial name="_AddTodo"/>
+
 
     <button class="btn btn-danger"
             hx-post=""
@@ -32,6 +35,9 @@
         </span>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consectetur cumque dolore enim error fugit illo, impedit laboriosam, molestiae nulla numquam optio perspiciatis quam rem repellat repellendus sit ut veniam.</p>
     </div>
+
+
+    @* Experimental *@
 
     <template x-if="false" x-cloak>
 
