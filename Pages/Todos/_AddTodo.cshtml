@@ -19,14 +19,15 @@
         </div>
 
         <span x-show="submitted" id="signup_indicator" class="htmx-indicator">
-            <label>signing up ...</label>
+            <label>Saving ...</label>
             <img class="w-8" alt="bars" src="~/img/loaders/circle_bars.svg"/>
         </span>
-        <div class="form-control mt-6">
+        <div data-tip="Submit this todo!" class="form-control mt-6 tooltip tooltip-bottom">
             <button
                 x-on:click="submitted=true"
                 class="btn btn-primary">
-                Let's GO!
+                <box-icon name='paper-plane'></box-icon>
+                Send it!
             </button>
         </div>
     </form>
