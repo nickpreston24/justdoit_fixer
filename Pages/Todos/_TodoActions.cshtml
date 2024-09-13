@@ -2,27 +2,40 @@
 
 <div>
 
-    <div class="flex flex-row items-center justify-center gap-2">
-        <button class="btn btn-warning"
-                hx-post=""
-                hx-page="Index"
-                hx-page-handler="RemoveTodo"
-                name="input"
-                value="DELETE"
-                confirm-with-sweet-alert='true'>
-            <box-icon class="text-accent" name='trash' type='solid'></box-icon>
-            Delete
-        </button>
+    <span x-text="todo_actions"></span>
 
-        <button
-            class="btn btn-primary">
-            <box-icon name='up-arrow-alt'></box-icon>
-            Bump
-        </button>
-        <button
-            class="btn btn-accent">
-            <box-icon type='solid' name='calendar-event'></box-icon>
-            Reschedule
-        </button>
+
+    <div class="flex flex-row items-center justify-center gap-2">
+
+        <hidden>
+            <div data-tip="Soft Delete" class="tooltip">
+                <button class="btn btn-warning"
+                        hx-post=""
+                        hx-page="Index"
+                        hx-page-handler="RemoveTodo"
+                        name="input"
+                        value="DELETE"
+                        confirm-with-sweet-alert='true'>
+                    <box-icon class="text-accent" name='trash' type='solid'></box-icon>
+                    Delete
+                </button>
+            </div>
+        </hidden>
+
+
+        <div data-tip="Bump" class="tooltip">
+            <button
+                class="btn btn-primary">
+                <box-icon name='up-arrow-alt'></box-icon>
+                Bump
+            </button>
+        </div>
+        <div data-tip="Reschedule" class="tooltip">
+            <button
+                class="btn btn-accent">
+                <box-icon type='solid' name='calendar-event'></box-icon>
+                Reschedule
+            </button>
+        </div>
     </div>
 </div>

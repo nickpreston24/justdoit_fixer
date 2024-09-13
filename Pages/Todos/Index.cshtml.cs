@@ -17,11 +17,6 @@ public class Index : PageModel
     {
     }
 
-    public async Task<IActionResult> OnGetStuff()
-    {
-        return Content("hi");
-    }
-
     public async Task<IActionResult> OnGetAllTodos(string search_term, [CallerMemberName] string name = "")
     {
         Console.WriteLine(nameof(OnGetAllTodos));
@@ -33,6 +28,7 @@ public class Index : PageModel
         var all_todos = (await connection.QueryAsync<Todo>(
                 "select * from todos"
             ))
+            .Where(t => !t.is_archived && t.is_enabled)
             .ToList();
 
         // var all_todos = new Todo().AsList();
@@ -92,5 +88,41 @@ public class Index : PageModel
         Console.WriteLine(nameof(OnPostRemoveTodo));
         int rows = -1;
         return Content($"removed {rows} rows.");
+    }
+
+    public async Task<IActionResult> OnGetMarkDone(int id = 0, bool value = false)
+    {
+        Console.WriteLine(nameof(OnGetMarkDone));
+        Console.WriteLine("Id: >> " + id);
+        Console.WriteLine("toggle value: >> " + value);
+
+        var now = DateTime.UtcNow;
+        var last_modified = now;
+
+        using var connection = SqlConnections.CreateConnection();
+        string query =
+            @"update todos 
+            set status = 'done' 
+            , last_modified = @last_modified
+            where id = @id";
+
+        int affected = await connection.ExecuteAsync(query, new
+        {
+            last_modified = last_modified,
+            id = id
+        });
+        string message = $"{affected} row affected.";
+
+        Console.WriteLine(message);
+        return Content(message);
+
+
+        // string html = @"""
+        //                 <input
+        //                     hx-get
+        //                     hx-page='Index'
+        //                     hx-page-handler='MarkDone'
+        //                     type='checkbox' checked class='checkbox'/>
+        //             """;
     }
 }

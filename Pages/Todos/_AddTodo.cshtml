@@ -3,28 +3,32 @@
 
 <form hx-post="@Url.Page("Index", "AddTodo")"
       hx-swap="outerHTML"
-      class=" bg-base-200 form-horizontal needs-validation"
+      class="bg-base-200 form-horizontal needs-validation border-green-500 border-0 flex flex-col items-center justify-center"
       _="on htmx:beforeSend set #submitButton.disabled to 'disabled'">
 
-    <!-- Text input-->
-    <div class="mb-3">
-        <label class="form-label" asp-for="@Model.Todo.content"></label>
-        <input type="text" class="form-control" asp-for="@Model.Todo.content">
-        <div class="invalid-feedback">
-            <span asp-validation-for="@Model.Todo.content"></span>
+    <div class="flex flex-row gap-2 justify-center items-center border-0 border-red-500">
+
+        <!-- Text input-->
+        <div class="mb-3">
+            @* <label class="form-label" asp-for="@Model.Todo.content"></label> *@
+            <input placeholder="Search or add a todo ..." type="text" class="form-control" asp-for="@Model.Todo.content">
+            <div class="invalid-feedback">
+                <span asp-validation-for="@Model.Todo.content"></span>
+            </div>
+        </div>
+
+        <div class="control">
+            <button id="submitButton" type="submit" class="btn btn-primary">
+                <span class="htmx-indicator">
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    <span class="visually-hidden">Loading...</span>
+                </span>
+                Submit
+            </button>
+
+            @Html.AntiForgeryToken()
         </div>
     </div>
 
-    <div class="control">
-        <button id="submitButton" type="submit" class="btn btn-primary">
-            <span class="htmx-indicator">
-                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                <span class="visually-hidden">Loading...</span>
-            </span>
-            Submit
-        </button>
-
-        @Html.AntiForgeryToken()
-    </div>
 
 </form>

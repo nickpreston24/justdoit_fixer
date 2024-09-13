@@ -5,7 +5,8 @@
     string search_term = "moopsy hungers....";
 }
 
-<div class="flex flex-col gap-4">
+<div x-data="setup_todo_action_buttons" 
+     class="flex flex-col gap-4">
     <h1>Todos (deployment fix)</h1>
 
     <partial name="_AddTodo"/>
@@ -54,3 +55,15 @@
 
     @* <partial name="_ToastSample"></partial> *@
 </div>
+
+<script>
+function setup_todo_action_buttons() {
+    return {
+        todo_actions: {
+            bump: {enabled: false}, 
+            reschedule: {enabled: false}, 
+            remove: {enabled: false}, 
+        }
+    }
+}
+</script>

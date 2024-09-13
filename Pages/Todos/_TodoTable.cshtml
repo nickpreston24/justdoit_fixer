@@ -5,22 +5,14 @@
     var table_type = "pinned";
 }
 
-<box-icon type='solid' name='calendar-event'></box-icon>
 <setion class="flex flex-col items-center justify-center border-2">
 
     <span> @all_todos.Count tasks</span>
 
     @if (table_type.Equals("pinned"))
     {
-        <div x-data="{show:true}" class="h-96 w-max-128 overflow-x-auto"
-
-             x-show="show"
-             x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0 scale-90"
-             x-transition:enter-end="opacity-100 scale-100"
-             x-transition:leave="transition ease-in duration-300"
-             x-transition:leave-start="opacity-100 scale-100"
-             x-transition:leave-end="opacity-0 scale-90">
+        <div
+            class="h-96 w-max-128 overflow-x-auto">
             <table class="table table-fixed table-pin-rows">
                 @foreach (var priority_group in all_todos.GroupBy(t => t.priority))
                 {
@@ -35,16 +27,37 @@
 
                     @foreach (var todo in @priority_group)
                     {
-                        <tr>
+                        <tr x-data="{show:true}"
+
+                            x-show="show"
+                            x-transition:enter="transition ease-out duration-300"
+                            x-transition:enter-start="opacity-0 scale-90"
+                            x-transition:enter-end="opacity-100 scale-100"
+                            x-transition:leave="transition ease-in duration-300"
+                            x-transition:leave-start="opacity-100 scale-100"
+                            x-transition:leave-end="opacity-0 scale-90">
 
                             <td class="flex flex-row gap-2">
 
-                                <span x-text="show"></span>
+                                @* <span x-text="show"></span> *@
                                 <label class="w-10">
-                                    <input type="checkbox" class="checkbox"/>
+                                    <input
+                                        hx-get
+                                        hx-page="Index"
+                                        hx-page-handler="MarkDone"
+                                        hx-vars="{id:'@todo.id'}"
+                                        x-on:click="show=false"
+                                        hx-on::after-request="show=false"
+                                        hx-swap="innerHTML"
+                                        type="checkbox"
+                                        class="checkbox"/>
+                                    <span></span>
                                 </label>
 
                                 <span class="badge badge-@todo.priority_css text-white">@todo.priority</span>
+                                @todo.content
+
+                                <span class="badge badge-@todo.status_css text-white">@todo.status</span>
                                 @todo.content
 
                             </td>
