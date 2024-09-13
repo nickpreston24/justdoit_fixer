@@ -5,12 +5,6 @@
 
     <div class="flex flex-row items-center justify-center gap-2">
 
-        <div data-tip="Add new task" class="tooltip">
-            <button class="btn btn-primary">
-                <box-icon name='list-plus'></box-icon>
-            </button>
-        </div>
-
         <hidden>
             <div data-tip="Soft Delete" class="tooltip">
                 <button class="btn btn-warning"
@@ -43,6 +37,8 @@
         </div>
 
         <partial name="_TodoFilters"></partial>
+
+        <partial name="_TodoModal"></partial>
 
     </div>
 </div>
