@@ -18,9 +18,12 @@
                 {
                     <thead>
                     <tr>
-                        <th>
-                            P@(@priority_group.Key)
-                        </th>
+                        @if (priority_group.Any())
+                        {
+                            <th>
+                                P@(@priority_group.Key)
+                            </th>
+                        }
                     </tr>
                     </thead>
                     <tbody>
@@ -55,11 +58,13 @@
                                 </label>
 
                                 <span class="badge badge-@todo.priority_css text-white">@todo.priority</span>
-                                @todo.content
 
                                 <span class="badge badge-@todo.status_css text-white">@todo.status</span>
-                                @todo.content
 
+                                <span class="text-neutral-600">
+
+                                    @todo.content
+                                </span>
                             </td>
                         </tr>
                     }

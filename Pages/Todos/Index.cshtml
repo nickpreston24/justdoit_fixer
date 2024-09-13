@@ -5,13 +5,17 @@
     string search_term = "moopsy hungers....";
 }
 
-<div x-data="setup_todo_action_buttons" 
+<div x-data="setup_todo_action_buttons"
      class="flex flex-col gap-4">
     <h1>Todos (deployment fix)</h1>
 
     <partial name="_AddTodo"/>
 
     <partial name="_TodoActions"></partial>
+
+    <hidden>
+        <partial name="_RadioGroup"></partial>
+    </hidden>
 
     <div
         hx-get

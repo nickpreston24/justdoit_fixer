@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using CodeMechanic.Diagnostics;
 using Dapper;
 using justdoit_fixer.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -9,9 +10,12 @@ namespace justdoit_fixer.Pages.Todos;
 
 public class Index : PageModel
 {
-    public Todo Todo { get; set; } = new Todo() { };
-    public string[] ViewNames { get; set; } = new[] { "TimeElapsed" };
+    [BindProperty(SupportsGet = true)] public Todo Todo { get; set; } = new Todo() { };
 
+    [BindProperty(SupportsGet = true)] public string Email { get; set; } = string.Empty;
+    [BindProperty(SupportsGet = true)] public string Content { get; set; } = string.Empty;
+
+    public string[] ViewNames { get; set; } = new[] { "TimeElapsed" };
 
     public void OnGet()
     {
@@ -25,10 +29,18 @@ public class Index : PageModel
         Stopwatch watch = Stopwatch.StartNew();
 
         using var connection = SqlConnections.CreateConnection();
-        var all_todos = (await connection.QueryAsync<Todo>(
-                "select * from todos"
-            ))
-            .Where(t => !t.is_archived && t.is_enabled)
+
+        Func<Todo, bool> filters = todo =>
+            // !todo.is_archived
+            // || todo.is_enabled
+            // && 
+            !todo.status.ToLower().Equals("done");
+
+        var all_todos = (
+                await connection.QueryAsync<Todo>(
+                    "select * from todos"
+                ))
+            .Where(filters)
             .ToList();
 
         // var all_todos = new Todo().AsList();
@@ -70,9 +82,13 @@ public class Index : PageModel
         }
     }
 
-    public async Task<IActionResult> OnPostAddTodo()
+    public async Task<IActionResult> OnPostAddTodo(string content = "")
     {
         string query = @"insert into todos (content) values (@content) ";
+
+        Todo.Dump("adding new todo");
+        Console.WriteLine("content = " + content);
+
         int rows = 0;
         using var connection = SqlConnections.CreateConnection();
         rows = await connection.ExecuteAsync(query, new Todo
