@@ -2,10 +2,9 @@
 
 <div>
 
-
     <div class="flex flex-row items-center justify-center gap-2">
 
-        <hidden>
+        <div x-show="todo_actions.delete.show">
             <div data-tip="Soft Delete" class="tooltip">
                 <button class="btn btn-warning"
                         hx-post=""
@@ -15,13 +14,11 @@
                         value="DELETE"
                         confirm-with-sweet-alert='true'>
                     <box-icon class="text-accent" name='trash' type='solid'></box-icon>
-                    @* Delete *@
                 </button>
             </div>
-        </hidden>
+        </div>
 
-
-        <div data-tip="Bump" class="tooltip">
+        <div x-show="todo_actions.bump.show" data-tip="Bump" class="tooltip">
             <button
                 class="btn btn-accent">
                 <box-icon name='up-arrow-alt'></box-icon>

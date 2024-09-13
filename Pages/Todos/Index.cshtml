@@ -9,6 +9,7 @@
          class="flex flex-col gap-4">
     @* <h1>Todos (deployment fix)</h1> *@
     @* <span x-text="views.metrics.show"></span> *@
+    @* <span x-text="todo_actions.bump.show"></span> *@
     @* <button x-on:click="views.metrics.show = true">show metrics</button> *@
 
 
@@ -46,15 +47,15 @@
 function setup_todo_action_buttons() {
     return {
         views: {
-            metrics: {show: false}
-            
+            metrics: { show: false }
         },
         
         todo_actions: {
-            bump: {enabled: false}, 
-            reschedule: {enabled: false}, 
-            remove: {enabled: false}, 
-        }
+            bump: { show: true },
+            reschedule: { show: true },
+            delete: { show: false }
+        },
+       
     }
 }
 </script>
