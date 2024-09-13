@@ -10,16 +10,7 @@
 
     <partial name="_AddTodo"/>
 
-
-    <button class="btn btn-danger"
-            hx-post=""
-            name="input"
-            value="DELETE"
-            confirm-with-sweet-alert='true'>
-        <box-icon class="text-accent" name='trash' type='solid'></box-icon>
-        Delete Important Stuff
-    </button>
-
+    <partial name="_TodoActions"></partial>
 
     <div
         hx-get
@@ -33,9 +24,8 @@
             loading...
             <img class="w-8" src="~/img/loaders/my_awesome_spinner.svg" alt="">
         </span>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consectetur cumque dolore enim error fugit illo, impedit laboriosam, molestiae nulla numquam optio perspiciatis quam rem repellat repellendus sit ut veniam.</p>
-    </div>
 
+    </div>
 
     @* Experimental *@
 

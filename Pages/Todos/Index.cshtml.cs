@@ -86,4 +86,11 @@ public class Index : PageModel
 
         return Content($"added {rows} rows.");
     }
+
+    public async Task<IActionResult> OnPostRemoveTodo()
+    {
+        Console.WriteLine(nameof(OnPostRemoveTodo));
+        int rows = -1;
+        return Content($"removed {rows} rows.");
+    }
 }
