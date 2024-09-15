@@ -10,6 +10,7 @@ namespace justdoit_fixer.Pages.Todos;
 
 public class Index : PageModel
 {
+    private readonly IHttpClientFactory _httpClientFactory;
     [BindProperty(SupportsGet = true)] public Todo Todo { get; set; } = new Todo() { };
 
     [BindProperty(SupportsGet = true)] public string Email { get; set; } = string.Empty;
@@ -17,13 +18,22 @@ public class Index : PageModel
 
     public string[] ViewNames { get; set; } = new[] { "_TimeElapsedTable" };
 
-    public void OnGet()
+    public Index(IHttpClientFactory httpClientFactory)
+    {
+        _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+    }
+
+    public async Task OnGet()
     {
     }
 
     public async Task<IActionResult> OnGetAllTodos(string search_term, [CallerMemberName] string name = "")
     {
-        Console.WriteLine(nameof(OnGetAllTodos));
+        // Console.WriteLine(nameof(OnGetAllTodos));
+
+        // string json = await GetMyInternalAPISampleTodos();
+        // Console.WriteLine("sample api todos :>> " + json);
+
         // if (debug)
         Console.WriteLine($"{name}:{search_term}");
         Stopwatch watch = Stopwatch.StartNew();
@@ -48,6 +58,28 @@ public class Index : PageModel
         watch.Stop();
         var elapsed = watch.Elapsed;
         return Partial("_TodoTable", all_todos);
+    }
+
+    /// <summary>
+    /// for testing my railway api
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
+    private async Task<string> GetMyInternalAPISampleTodos()
+    {
+        // get sample api todos:
+        try
+        {
+            // var client = _httpClientFactory.CreateClient();
+            var client = new HttpClient();
+            var response = await client.GetAsync("https://justdoitapi-production.up.railway.app/todos");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
 
@@ -105,6 +137,11 @@ public class Index : PageModel
         Console.WriteLine(nameof(OnPostRemoveTodo));
         int rows = -1;
         return Content($"removed {rows} rows.");
+    }
+
+    public async Task<IActionResult> OnGetBumpTodo(int id = 0, string days = "7d")
+    {
+        return default;
     }
 
     public async Task<IActionResult> OnGetMarkDone(int id = 0, bool value = false)

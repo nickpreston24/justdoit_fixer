@@ -12,8 +12,8 @@
     @if (table_type.Equals("pinned"))
     {
         <div
-            class="h-96 w-max-128 overflow-x-auto">
-            <table class="table table-fixed table-pin-rows">
+            class="h-96 w-max-96 overflow-y-auto">
+            <table class="table table-fixed table-zebra table-pin-rows">
                 @foreach (var priority_group in all_todos.GroupBy(t => t.priority))
                 {
                     <thead>
@@ -57,9 +57,53 @@
                                     <span></span>
                                 </label>
 
-                                <span class="badge badge-@todo.priority_css text-white">@todo.priority</span>
+                                <span class="badge badge-@todo.priority_css text-white">P@todo.priority</span>
 
                                 <span class="badge badge-@todo.status_css text-white">@todo.status</span>
+
+
+                                <span class="flex flex-row gap-1">
+
+                                    <div data-tip="Soft Delete" class="tooltip">
+                                        <button class="btn btn-xs btn-ghost hover:btn-warning"
+                                                hx-post=""
+                                                hx-page="Index"
+                                                hx-page-handler="RemoveTodo"
+                                                name="input"
+                                                value="DELETE"
+                                                confirm-with-sweet-alert='true'>
+                                            <box-icon
+                                                size="sm"
+                                                class="text-white pb-1"
+                                                :color="boxicon.color"
+                                                name='trash' type=''>
+                                            </box-icon>
+                                        </button>
+                                    </div>
+
+                                    <div x-show="todo_actions.bump.show" data-tip="Bump" class="tooltip">
+                                        <button
+                                            class="btn btn-xs btn-ghost  hover:btn-accent">
+                                            <box-icon
+                                                class="pb-0"
+                                                size="sm"
+                                                :color="boxicon.color"
+                                                name='up-arrow-alt'>
+                                            </box-icon>
+                                        </button>
+                                    </div>
+                                    <div data-tip="Reschedule" class="tooltip">
+                                        <button
+                                            class="pb-1"
+                                            size="sm"
+                                            class="btn btn-xs btn-ghost hover:btn-accent">
+                                            <box-icon type='' name='calendar-event'
+
+                                                      :color="boxicon.color">
+                                            </box-icon>
+                                        </button>
+                                    </div>
+                                </span>
 
                                 <span class="text-neutral-600">
 

@@ -10,6 +10,8 @@ DotEnv.Load(debug: false);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddHydro();
+builder.Services.AddHttpClient();
+
 
 var app = builder.Build();
 
