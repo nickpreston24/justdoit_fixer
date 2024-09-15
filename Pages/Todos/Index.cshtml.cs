@@ -48,7 +48,7 @@ public class Index : PageModel
 
         var all_todos = (
                 await connection.QueryAsync<Todo>(
-                    "select * from todos"
+                    "select id, content from todos"
                 ))
             .Where(filters)
             .ToList();
