@@ -3,5 +3,5 @@ builder = "dockerfile"
 dockerfilePath = "./Dockerfile"
 
 [deploy]
-startCommand = "dotnet lets_break_razor.dll"
+startCommand = "dotnet justdoit_fixer.dll"
 restartPolicyType = "never"
