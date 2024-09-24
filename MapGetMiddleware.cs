@@ -1,6 +1,3 @@
-using System.Text;
-using Microsoft.AspNetCore.Mvc;
-
 public static class MapGetMiddleware
 {
     public static WebApplication ConfigureMiddleware(this WebApplication app)
