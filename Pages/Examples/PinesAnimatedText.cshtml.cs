@@ -4,8 +4,5 @@ namespace justdoit_fixer.Pages;
 
 public class PinesAnimatedText : PageModel
 {
-    public void OnGet()
-    {
-        
-    }
+    public void OnGet() { }
 }

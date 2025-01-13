@@ -12,7 +12,6 @@ public class Todo
     public string priority_css { get; set; } = "warning";
     public string status_css { get; set; } = "success";
 
-
     public DateTime due { get; set; } = DateTime.MinValue; // = Start.Add(Duration);
 
     public bool is_recurring { set; get; } = false;

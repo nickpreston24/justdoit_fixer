@@ -6,12 +6,12 @@ using Hydro.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 DotEnv.Load(debug: false);
+
 // builder.Services.AddSingleton<ITodosRepository, TodosRepository>();
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddHydro();
 builder.Services.AddHttpClient();
-
 
 var app = builder.Build();
 

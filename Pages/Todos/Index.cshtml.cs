@@ -11,23 +11,30 @@ namespace justdoit_fixer.Pages.Todos;
 public class Index : PageModel
 {
     private readonly IHttpClientFactory _httpClientFactory;
-    [BindProperty(SupportsGet = true)] public Todo Todo { get; set; } = new Todo() { };
 
-    [BindProperty(SupportsGet = true)] public string Email { get; set; } = string.Empty;
-    [BindProperty(SupportsGet = true)] public string Content { get; set; } = string.Empty;
+    [BindProperty(SupportsGet = true)]
+    public Todo Todo { get; set; } = new Todo() { };
+
+    [BindProperty(SupportsGet = true)]
+    public string Email { get; set; } = string.Empty;
+
+    [BindProperty(SupportsGet = true)]
+    public string Content { get; set; } = string.Empty;
 
     public string[] ViewNames { get; set; } = new[] { "_TimeElapsedTable" };
 
     public Index(IHttpClientFactory httpClientFactory)
     {
-        _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+        _httpClientFactory =
+            httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
     }
 
-    public async Task OnGet()
-    {
-    }
+    public async Task OnGet() { }
 
-    public async Task<IActionResult> OnGetAllTodos(string search_term, [CallerMemberName] string name = "")
+    public async Task<IActionResult> OnGetAllTodos(
+        string search_term,
+        [CallerMemberName] string name = ""
+    )
     {
         // Console.WriteLine(nameof(OnGetAllTodos));
 
@@ -43,13 +50,10 @@ public class Index : PageModel
         Func<Todo, bool> filters = todo =>
             // !todo.is_archived
             // || todo.is_enabled
-            // && 
+            // &&
             !todo.status.ToLower().Equals("done");
 
-        var all_todos = (
-                await connection.QueryAsync<Todo>(
-                    "select id, content from todos"
-                ))
+        var all_todos = (await connection.QueryAsync<Todo>("select id, content from todos"))
             .Where(filters)
             .ToList();
 
@@ -71,7 +75,9 @@ public class Index : PageModel
         {
             // var client = _httpClientFactory.CreateClient();
             var client = new HttpClient();
-            var response = await client.GetAsync("https://justdoitapi-production.up.railway.app/todos");
+            var response = await client.GetAsync(
+                "https://justdoitapi-production.up.railway.app/todos"
+            );
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadAsStringAsync();
         }
@@ -82,7 +88,6 @@ public class Index : PageModel
         }
     }
 
-
     /// <summary>
     /// Renders a Mysql view requested from the frontend
     /// </summary>
@@ -91,10 +96,10 @@ public class Index : PageModel
     /// <param name="debug"></param>
     /// <returns></returns>
     public async Task<IActionResult> OnGetRenderView(
-        string view_name
-        , Type result_type
-        , bool debug = false
-        , [CallerMemberName] string name = ""
+        string view_name,
+        Type result_type,
+        bool debug = false,
+        [CallerMemberName] string name = ""
     )
     {
         Console.WriteLine(name);
@@ -102,7 +107,9 @@ public class Index : PageModel
         {
             Stopwatch watch = Stopwatch.StartNew();
             using var connection = SqlConnections.CreateConnection();
-            var view_results = (await connection.QueryAsync(@"select id from TimeElapsed")).ToList();
+            var view_results = (
+                await connection.QueryAsync(@"select id from TimeElapsed")
+            ).ToList();
             watch.Stop();
             var elapsed = watch.Elapsed;
 
@@ -124,10 +131,7 @@ public class Index : PageModel
 
         int rows = 0;
         using var connection = SqlConnections.CreateConnection();
-        rows = await connection.ExecuteAsync(query, new Todo
-        {
-            content = Todo.content
-        });
+        rows = await connection.ExecuteAsync(query, new Todo { content = Todo.content });
 
         return Content($"added {rows} rows.");
     }
@@ -160,16 +164,14 @@ public class Index : PageModel
             , last_modified = @last_modified
             where id = @id";
 
-        int affected = await connection.ExecuteAsync(query, new
-        {
-            last_modified = last_modified,
-            id = id
-        });
+        int affected = await connection.ExecuteAsync(
+            query,
+            new { last_modified = last_modified, id = id }
+        );
         string message = $"{affected} row affected.";
 
         Console.WriteLine(message);
         return Content(message);
-
 
         // string html = @"""
         //                 <input

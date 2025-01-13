@@ -4,8 +4,5 @@ namespace justdoit_fixer.Pages;
 
 public class Index : PageModel
 {
-    public void OnGet()
-    {
-        
-    }
+    public void OnGet() { }
 }
